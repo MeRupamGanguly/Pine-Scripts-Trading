@@ -1098,8 +1098,14 @@ getCurrentStructure(5,false,true)
 if showEqualHighsLowsInput
     getCurrentStructure(equalHighsLowsLengthInput,true)
 
+if showInternalsInput or showInternalOrderBlocksInput or showTrendInput
+    displayStructure(true)
+
 if showStructureInput or showSwingOrderBlocksInput or showHighLowSwingsInput
     displayStructure()
+
+if showInternalOrderBlocksInput
+    deleteOrderBlocks(true)
 
 if showSwingOrderBlocksInput
     deleteOrderBlocks()
