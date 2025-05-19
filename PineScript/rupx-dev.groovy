@@ -1,5 +1,5 @@
 //@version=6
-indicator("Rupx-Dev Pro", overlay=true, max_lines_count=500, max_labels_count=500)
+indicator("Rupx-Dev", overlay=true, max_lines_count=500, max_labels_count=500)
 
 // ———— Color Scheme ————
 colorSuperFast    = #00FFFF    // Bright Cyan – vivid and glows on dark
@@ -432,12 +432,12 @@ equalHighsLowsLengthInput       = input.int(    3,          'Bars Confirmation',
 equalHighsLowsThresholdInput    = input.float(  0.1,        'Threshold',                group = EQUAL_GROUP,    tooltip = equalHighsLowsThresholdTooltip,   minval = 0, maxval = 0.5, step = 0.1)
 equalHighsLowsSizeInput         = input.string( TINY,       'Label Size',               group = EQUAL_GROUP,    options = [TINY,SMALL,NORMAL])
 
-showFairValueGapsInput          = input(        false,      'Fair Value Gaps',          group = GAPS_GROUP,     tooltip = showFairValueGapsTooltip)
+showFairValueGapsInput          = input(        true,      'Fair Value Gaps',          group = GAPS_GROUP,     tooltip = showFairValueGapsTooltip)
 fairValueGapsThresholdInput     = input(        true,       'Auto Threshold',           group = GAPS_GROUP,     tooltip = fairValueGapsThresholdTooltip)
 fairValueGapsTimeframeInput     = input.timeframe('',       'Timeframe',                group = GAPS_GROUP,     tooltip = fairValueGapsTimeframeTooltip)
 fairValueGapsBullColorInput     = input.color(color.new(#00ff68, 70), 'Bullish FVG' , group = GAPS_GROUP)
 fairValueGapsBearColorInput     = input.color(color.new(#ff0008, 70), 'Bearish FVG' , group = GAPS_GROUP)
-fairValueGapsExtendInput        = input.int(    1,          'Extend FVG',               group = GAPS_GROUP,     tooltip = fairValueGapsExtendTooltip,       minval = 0)
+fairValueGapsExtendInput        = input.int(    4,          'Extend FVG',               group = GAPS_GROUP,     tooltip = fairValueGapsExtendTooltip,       minval = 0)
 
 showDailyLevelsInput            = input(        false,      'Daily',    group = LEVELS_GROUP,   inline = 'daily')
 dailyLevelsStyleInput           = input.string( SOLID,      '',         group = LEVELS_GROUP,   inline = 'daily',   options = [SOLID,DASHED,DOTTED])
@@ -1098,14 +1098,8 @@ getCurrentStructure(5,false,true)
 if showEqualHighsLowsInput
     getCurrentStructure(equalHighsLowsLengthInput,true)
 
-if showInternalsInput or showInternalOrderBlocksInput or showTrendInput
-    displayStructure(true)
-
 if showStructureInput or showSwingOrderBlocksInput or showHighLowSwingsInput
     displayStructure()
-
-if showInternalOrderBlocksInput
-    deleteOrderBlocks(true)
 
 if showSwingOrderBlocksInput
     deleteOrderBlocks()
