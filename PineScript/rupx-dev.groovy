@@ -2,19 +2,22 @@
 indicator("Rupx-Dev Pro", overlay=true, max_lines_count=500, max_labels_count=500)
 
 // ———— Color Scheme ————
-colorSuperFast    = #00FFFF    // Cyan
-colorFast         = #00FF00    // Lime Green
-colorNormal       = #FF00FF    // Magenta
-colorLazy         = #FFA500    // Orange
-colorNormal1H     = #4B0082    // Indigo
-colorLazy1H       = #8A2BE2    // Blue Violet
-colorNormal4H     = #1E90FF    // Dodger Blue
-colorLazy4H       = #87CEEB    // Sky Blue
-colorBB           = #FFFFFF    // White
-colorBB1H         = #FFD700    // Gold
-colorBB4H         = #00FF00    // Green
-colorBB1D         = #FFA07A  // Light Salmon
-colorText         = color.white
+colorSuperFast    = #00FFFF    // Bright Cyan – vivid and glows on dark
+colorFast         = #39FF14    // Neon Green – pops out better than #00FF00
+colorNormal       = #FF00FF    // Magenta – very high visibility (unchanged)
+colorLazy         = #FFA500    // Orange – strong warmth (unchanged)
+
+colorNormal1H     = #DA70D6    // Orchid – lighter violet for contrast
+colorLazy1H       = #BA55D3    // Medium Orchid – deeper but still visible
+colorNormal4H     = #1E90FF    // Dodger Blue – now works better with tweaks
+colorLazy4H       = #5AC8FA    // Light Blue – brighter for visibility
+
+colorBB           = #FFFFFF    // Pure White – always visible
+colorBB1H         = #FFD700    // Gold – warm and eye-catching
+colorBB4H         = #7CFC00    // Lawn Green – bright and very visible
+colorBB1D         = #FF6347    // Tomato – better contrast than Light Salmon
+
+colorText         = #E0E0E0    // Light Gray (softer than pure white, easier on eyes)
 colorBG           = #131722    // Dark Background
 
 // ———— Set Background ————
@@ -96,19 +99,19 @@ plot(showCurrentBB ? basis : na, "Mid BB", color.new(colorBB, 30), 1)
 plot(showCurrentBB ? lowerBB : na, "Lower BB", color.new(colorBB, 30), 1)
 
 // ———— Plot 1H Bollinger Bands ————
-plot(show1HBB ? h1Upper : na, "1H Upper", color.new(colorBB1H, 50), 1)
-plot(show1HBB ? h1Basis : na, "1H Mid", color.new(colorBB1H, 50), 1)
-plot(show1HBB ? h1Lower : na, "1H Lower", color.new(colorBB1H, 50), 1)
+plot(show1HBB ? h1Upper : na, "1H Upper", color.new(colorBB1H, 40), 1)
+plot(show1HBB ? h1Basis : na, "1H Mid", color.new(colorBB1H, 40), 1)
+plot(show1HBB ? h1Lower : na, "1H Lower", color.new(colorBB1H, 40), 1)
 
 // ———— Plot 4H Bollinger Bands ————
-plot(show4HBB ? h4Upper : na, "4H Upper", color.new(colorBB4H, 70), 1)
-plot(show4HBB ? h4Basis : na, "4H Mid", color.new(colorBB4H, 70), 1)
-plot(show4HBB ? h4Lower : na, "4H Lower", color.new(colorBB4H, 70), 1)
+plot(show4HBB ? h4Upper : na, "4H Upper", color.new(colorBB4H, 20), 1)
+plot(show4HBB ? h4Basis : na, "4H Mid", color.new(colorBB4H, 20), 1)
+plot(show4HBB ? h4Lower : na, "4H Lower", color.new(colorBB4H, 20), 1)
 
 // ———— Plot 1D Bollinger Bands ————
-plot(show1DBB ? d1Upper : na, "1D Upper", color.new(colorBB1D, 70), 1)
-plot(show1DBB ? d1Basis : na, "1D Mid", color.new(colorBB1D, 70), 1)
-plot(show1DBB ? d1Lower : na, "1D Lower", color.new(colorBB1D, 70), 1)
+plot(show1DBB ? d1Upper : na, "1D Upper", color.new(colorBB1D, 20), 1)
+plot(show1DBB ? d1Basis : na, "1D Mid", color.new(colorBB1D, 20), 1)
+plot(show1DBB ? d1Lower : na, "1D Lower", color.new(colorBB1D, 20), 1)
 
 // ———— Alert System ————
 alertBullish = input(true, "Enable Bullish Alerts", group="Alerts")
@@ -205,56 +208,54 @@ if ShowTable
     // addcell(tblRulesRsiEmas, 4, "EMA200", true, false, EMA200)
 
 
-
 // ———— Color Legend Table ————
 ShowColorLegend = input(true, "Show Color Legend", group="Color Legend Settings")
 
 if ShowColorLegend
     // Create table in bottom right corner
     var tblColorLegend = table.new(position.bottom_right, 2, 23, bgcolor=color.rgb(19, 23, 34, 95), border_width=1)
-    
+
     // Table headers
     table.cell(tblColorLegend, 0, 0, "Indicator", text_color=color.white, bgcolor=color.rgb(19, 23, 34))
     table.cell(tblColorLegend, 1, 0, "Color", text_color=color.white, bgcolor=color.rgb(19, 23, 34))
-    
+
     // EMA Color Legend
     table.cell(tblColorLegend, 0, 1, "5 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 1, "", bgcolor=color.new(colorSuperFast, 40))
-    
+    table.cell(tblColorLegend, 1, 1, "", bgcolor=color.new(#00FFFF, 20))     // Bright Cyan
+
     table.cell(tblColorLegend, 0, 2, "9 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 2, "", bgcolor=color.new(colorFast, 40))
-    
+    table.cell(tblColorLegend, 1, 2, "", bgcolor=color.new(#39FF14, 20))     // Neon Green
+
     table.cell(tblColorLegend, 0, 3, "50 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 3, "", bgcolor=color.new(colorNormal, 40))
-    
+    table.cell(tblColorLegend, 1, 3, "", bgcolor=color.new(#FF00FF, 20))     // Magenta
+
     table.cell(tblColorLegend, 0, 4, "200 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 4, "", bgcolor=color.new(colorLazy, 40))
-    
+    table.cell(tblColorLegend, 1, 4, "", bgcolor=color.new(#FFA500, 20))     // Orange
+
     table.cell(tblColorLegend, 0, 5, "1H 50 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 5, "", bgcolor=color.new(colorNormal1H, 60))
-    
+    table.cell(tblColorLegend, 1, 5, "", bgcolor=color.new(#DA70D6, 30))     // Orchid
+
     table.cell(tblColorLegend, 0, 6, "1H 200 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 6, "", bgcolor=color.new(colorLazy1H, 60))
-    
+    table.cell(tblColorLegend, 1, 6, "", bgcolor=color.new(#BA55D3, 30))     // Medium Orchid
+
     table.cell(tblColorLegend, 0, 7, "4H 50 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 7, "", bgcolor=color.new(colorNormal4H, 80))
-    
+    table.cell(tblColorLegend, 1, 7, "", bgcolor=color.new(#1E90FF, 40))     // Dodger Blue
+
     table.cell(tblColorLegend, 0, 8, "4H 200 EMA", text_color=color.white)
-    table.cell(tblColorLegend, 1, 8, "", bgcolor=color.new(colorLazy4H, 80))
-    
+    table.cell(tblColorLegend, 1, 8, "", bgcolor=color.new(#5AC8FA, 40))     // Light Blue
+
     // Bollinger Bands Legend
     table.cell(tblColorLegend, 0, 9, "Current BB", text_color=color.white)
-    table.cell(tblColorLegend, 1, 9, "", bgcolor=color.new(colorBB, 30))
-    
+    table.cell(tblColorLegend, 1, 9, "", bgcolor=color.new(#FFFFFF, 10))     // White
+
     table.cell(tblColorLegend, 0, 10, "1H BB", text_color=color.white)
-    table.cell(tblColorLegend, 1, 10, "", bgcolor=color.new(colorBB1H, 50))
-    
+    table.cell(tblColorLegend, 1, 10, "", bgcolor=color.new(#FFD700, 20))    // Gold
+
     table.cell(tblColorLegend, 0, 11, "4H BB", text_color=color.white)
-    table.cell(tblColorLegend, 1, 11, "", bgcolor=color.new(colorBB4H, 70))
+    table.cell(tblColorLegend, 1, 11, "", bgcolor=color.new(#7CFC00, 30))    // Lawn Green
 
     table.cell(tblColorLegend, 0, 12, "1D BB", text_color=color.white)
-    table.cell(tblColorLegend, 1, 12, "", bgcolor=color.new(colorBB1D, 70))
-
+    table.cell(tblColorLegend, 1, 12, "", bgcolor=color.new(#FF6347, 30))    // Tomato
 
 // --------------------------------------- KILL Zone --------------------------------------------------
 
